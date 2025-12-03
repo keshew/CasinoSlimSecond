@@ -1,10 +1,3 @@
-//
-//  CasinoSlimSecondTests.swift
-//  CasinoSlimSecondTests
-//
-//  Created by Артём Коротков on 01.12.2025.
-//
-
 import XCTest
 @testable import CasinoSlimSecond
 

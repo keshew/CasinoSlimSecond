@@ -1,10 +1,3 @@
-//
-//  CasinoSlimSecondUITestsLaunchTests.swift
-//  CasinoSlimSecondUITests
-//
-//  Created by Артём Коротков on 01.12.2025.
-//
-
 import XCTest
 
 final class CasinoSlimSecondUITestsLaunchTests: XCTestCase {

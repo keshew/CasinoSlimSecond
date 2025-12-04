@@ -33,7 +33,6 @@ class SettingsViewModel: ObservableObject {
     
     @Published var isNotifOn: Bool {
         didSet {
-            soundManager.toggleMusic()
             UserDefaults.standard.set(isNotifOn, forKey: "isNotifOn")
         }
     }

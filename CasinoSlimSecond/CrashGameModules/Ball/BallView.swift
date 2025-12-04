@@ -5,7 +5,7 @@ import SwiftUI
 class GameData: ObservableObject {
     @Published var reward: Double = 0.0
     @Published var bet: Int = 50
-
+    @Published var rewardStay = 0.0
     @Published var balance: Int = UserDefaultsManager.shared.coins
     @Published var isPlayTapped: Bool = false
     @Published var labels: [String] = ["1x", "1.5x", "2x", "5x", "10x", "5x", "2x", "1.5x", "1x"]
@@ -43,6 +43,7 @@ class GameData: ObservableObject {
         UserDefaultsManager.shared.startGame()
         UserDefaultsManager.shared.addExperience()
         reward = 0.0
+        rewardStay = 0.0
         isPlayTapped = true
         createBallPublisher.send(())
     }
@@ -55,6 +56,7 @@ class GameData: ObservableObject {
     
     func addWin(_ amount: Double) {
         reward += amount
+        rewardStay += amount
     }
     
     func finishGame() {
@@ -389,7 +391,7 @@ struct BallView: View {
                                                                                   Color(red: 23/255, green: 23/255, blue: 23/255),
                                                                                   Color(red: 47/255, green: 47/255, blue: 47/255)], startPoint: .top, endPoint: .bottom))
                                                     .overlay {
-                                                        Text("\(viewModel.bet)")
+                                                        Text("\(gameModel.bet)")
                                                             .font(.custom("MPLUS1p-Bold", size: 16))
                                                             .foregroundStyle(Color(red: 181/255, green: 181/255, blue: 181/255))
                                                     }
@@ -442,6 +444,24 @@ struct BallView: View {
                                                     }
                                                 }
                                             }
+                                            
+                                            VStack(spacing: 5) {
+                                                Text("WIN")
+                                                    .font(.custom("MPLUS1p-Bold", size: 16))
+                                                    .foregroundStyle(Color(red: 236/255, green: 117/255, blue: 117/255))
+                                                
+                                                Rectangle()
+                                                    .fill(LinearGradient(colors: [Color(red: 55/255, green: 55/255, blue: 55/255),
+                                                                                  Color(red: 23/255, green: 23/255, blue: 23/255),
+                                                                                  Color(red: 47/255, green: 47/255, blue: 47/255)], startPoint: .top, endPoint: .bottom))
+                                                    .overlay {
+                                                        Text("\(Int(gameModel.rewardStay))")
+                                                            .font(.custom("MPLUS1p-Bold", size: 16))
+                                                            .foregroundStyle(Color(red: 181/255, green: 181/255, blue: 181/255))
+                                                    }
+                                                    .frame(height: 40)
+                                                    .cornerRadius(6)
+                                            }
                                         }
                                         
                                         HStack {
@@ -474,7 +494,7 @@ struct BallView: View {
                                     .padding(.horizontal)
                                 }
                         }
-                        .frame(height: 590)
+                        .frame(height: 670)
                         .cornerRadius(16)
                         .padding(.horizontal)
                 }
